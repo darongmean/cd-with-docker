@@ -1,3 +1,48 @@
+# Setup the local repository
+
+- Run all these commmands INSIDE boot2docker:
+`boot2docker ssh`
+
+- Export the build directories:
+`export BUILDENV=/home/docker/buildenv/src`
+`export REPO=/home/docker/remote`
+
+- Create GIT repository with commit hook:
+```
+cd $REPO
+git init --bare
+mkdir hooks
+```
+
+- Create a post-receive hook:
+```
+cat > hooks/post-receive << EOF
+#!/bin/sh
+
+unset GIT_DIR
+
+if [ ! -d $BUILDENV ]; then
+    git clone $REPODIR $BUILDENV
+else
+    cd $BUILDENV && git pull
+fi
+EOF
+chmod +x hooks/post-receive
+```
+
+- Clone the GO Hello World application
+```
+cd $BUILDENV
+git clone https://github.com/simonvanderveldt/go-hello-world-http 
+cd go-hello-world-http
+```
+
+- Push to the "local remote branch"
+```
+git remote add remote ../remote
+git push remote master
+```
+
 # Setup
 
 - Build the buildenv image: `docker build -t buildenv buildenv/`
