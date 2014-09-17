@@ -1,4 +1,4 @@
-FROM buildenv:latest
+FROM google/golang
 
 RUN apt-get update && apt-get -y install golang-go
 
