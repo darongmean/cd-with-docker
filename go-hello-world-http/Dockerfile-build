@@ -1,0 +1,9 @@
+# TODO Check if smaller baseimage is available
+FROM buildenv-go:latest
+
+# TODO Check how we are going to get the commithook into our pipeline
+ADD src/ /code/
+
+RUN go build code/*.go
+# docker run --rm imagehash cat /code/hellowebworld > hellowebworld
+# docker run --force-rm buildenv-go:latest -v 

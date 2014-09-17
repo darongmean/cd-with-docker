@@ -1,0 +1,26 @@
+{
+     "Hostname":"",
+     "User":"",
+     "Memory":0,
+     "MemorySwap":0,
+     "AttachStdin":false,
+     "AttachStdout":true,
+     "AttachStderr":true,
+     "PortSpecs":null,
+     "Tty":false,
+     "OpenStdin":false,
+     "StdinOnce":false,
+     "Env":null,
+     "Cmd":[
+             "sh -c 'go get github.com/simonvanderveldt/go-hello-world-http && cp /usr/lib/go/bin/go-hello-world-http /tmp/'"
+     ],
+     "Image":"buildenv-go",
+     "Volumes":{
+             "/tmp": ["/tmp"]
+     },
+     "WorkingDir":"",
+     "DisableNetwork": false,
+     "ExposedPorts":{
+             "22/tcp": {}
+     }
+}
