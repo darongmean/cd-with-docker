@@ -1,9 +1,10 @@
-# Build the binary
-`docker run --rm buildenv-go:latest sh -c 'go get github.com/simonvanderveldt/go-hello-world-http && cat /usr/lib/go/bin/go-hello-world-http' > go-hello-world-http`
+# Setup
 
-`--rm` deletes the container after it exits
-`sh -c` is necessary to make the shell within the container eval the combination of build & cat
-`> go-hello-world-http` save the cat output from the container in `go-hello-world-http`
+- Build the buildenv image: `docker build -t buildenv buildenv/`
+- Build the buildenv-go image: `docker build -t buildenv-go buildenv-go/`
 
-# Build the container
-docker build -t go-hello-world-http:latest go-hello-world-http
+
+# Build a Go artifact
+- Clone the repo to build to /home/docker/buildenv/src: `git clone https://github.com/simonvanderveldt/go-hello-world-http.git /home/docker/buildenv/src`
+- Run the buildenv-go container with `/home/docker/buildenv` mounted and the name of the package to build: `docker run --rm -v /home/docker/buildenv:/buildenv buildenv-go go-hello-world-http`
+  - The compiled binaries are available at `/home/docker/buildenv`
