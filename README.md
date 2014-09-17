@@ -4,19 +4,21 @@
 `boot2docker ssh`
 
 - Export the build directories:
+`export SRC=/home/docker/src`
 `export BUILDENV=/home/docker/buildenv/src`
 `export REPO=/home/docker/remote`
 
 - Create GIT repository with commit hook:
 ```
+mkdir $REPO
 cd $REPO
 git init --bare
-mkdir hooks
+mkdir -p hooks
 ```
 
 - Create a post-receive hook:
 ```
-cat > hooks/post-receive << EOF
+cat > hooks/post-receive << \EOF
 #!/bin/sh
 
 unset GIT_DIR
@@ -32,21 +34,22 @@ chmod +x hooks/post-receive
 
 - Clone the GO Hello World application
 ```
-cd $BUILDENV
-git clone https://github.com/simonvanderveldt/go-hello-world-http 
-cd go-hello-world-http
+git clone https://github.com/simonvanderveldt/go-hello-world-http $SRC
+cd $SRC
 ```
 
 - Push to the "local remote branch"
 ```
-git remote add remote ../remote
+git remote add remote $REPODIR
 git push remote master
 ```
 
+- Your code should be visible in directory `$BUILDENV` and is ready for the build phase.
+
 # Setup
 
-- Build the buildenv image: `docker build -t buildenv buildenv/`
-- Build the buildenv-go image: `docker build -t buildenv-go buildenv-go/`
+- Build the buildenv image: `docker build -t builder builder/`
+- Build the buildenv-go image: `docker build -t builder-go builder-go/`
 
 
 # Build a Go artifact
