@@ -54,5 +54,5 @@ git push remote master
 
 # Build a Go artifact
 - Clone the repo to build to /home/docker/buildenv/src: `git clone https://github.com/simonvanderveldt/go-hello-world-http.git /home/docker/buildenv/src`
-- Run the buildenv-go container with `/home/docker/buildenv` mounted and the name of the package to build: `docker run --rm -v /home/docker/buildenv:/buildenv buildenv-go go-hello-world-http`
+- Run the buildenv-go container with `/home/docker/buildenv` mounted and the name of the package to build: `docker run --rm -v /home/docker/buildenv:/buildenv buildenv-go go build -v go-hello-world-http`
   - The compiled binaries are available at `/home/docker/buildenv`
