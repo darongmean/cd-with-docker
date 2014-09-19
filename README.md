@@ -6,12 +6,12 @@
 - Export the build directories:
 `export SRC=/home/docker/src`
 `export BUILDENV=/home/docker/buildenv/src`
-`export REPO=/home/docker/remote`
+`export REPODIR=/home/docker/remote`
 
 - Create GIT repository with commit hook:
 ```
-mkdir $REPO
-cd $REPO
+mkdir $REPODIR
+cd $REPODIR
 git init --bare
 mkdir -p hooks
 ```
@@ -48,6 +48,8 @@ git push remote master
 
 # Setup
 
+From the root of this repository:
+
 - Build the buildenv image: `docker build -t builder builder/`
 - Build the buildenv-go image: `docker build -t builder-go builder-go/`
 
@@ -56,3 +58,7 @@ git push remote master
 - Clone the repo to build to /home/docker/buildenv/src: `git clone https://github.com/simonvanderveldt/go-hello-world-http.git /home/docker/buildenv/src`
 - Run the buildenv-go container with `/home/docker/buildenv` mounted and the name of the package to build: `docker run --rm -v /home/docker/buildenv:/buildenv buildenv-go go build -v go-hello-world-http`
   - The compiled binaries are available at `/home/docker/buildenv`
+
+# Run the runner container
+- Create the runner container: `docker build -t runner runner/`
+- Run the runner container: `docker run -d --name runner -v $BUILDENV:/buildenv -p 80:80 runner`
