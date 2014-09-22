@@ -1,6 +1,6 @@
 FROM google/golang
 
-ENV GOPATH /gopathv
+ENV GOPATH /gopath
 
 WORKDIR /gopath
 
