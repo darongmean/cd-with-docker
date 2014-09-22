@@ -1,9 +1,0 @@
-{
-     "AttachStdout":true,
-     "AttachStderr":true,
-     "PortSpecs":null,
-     "Cmd":[
-             "sh -c 'go get github.com/simonvanderveldt/go-hello-world-http && cat /usr/lib/go/bin/go-hello-world-http' > go-hellow-world-http"
-     ],
-     "Image":"buildenv-go:latest"
-}
