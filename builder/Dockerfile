@@ -1,4 +1,9 @@
-# TODO Check if smaller baseimage is available
-FROM debian:wheezy
+FROM google/golang
 
-RUN apt-get update && apt-get -y install git
+ENV GOPATH /gopathv
+
+WORKDIR /gopath
+
+ENTRYPOINT ["go", "build"]
+
+CMD ["."]
